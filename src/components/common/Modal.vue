@@ -19,10 +19,12 @@
           <div class="modal-footer">
             <slot name="footer">
               default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
             </slot>
+          </div>
+          <div class="btn-box">
+            <button class="modal-default-button" @click="$emit('close')">
+                    OK
+            </button>
           </div>
         </div>
       </div>
@@ -99,5 +101,10 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.btn-box {
+    display: inline-block;
+    width: 100%;
 }
 </style>

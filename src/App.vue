@@ -4,14 +4,6 @@
     <TodoInput v-on:addTodoEvent="addTodo" />
     <TodoList v-bind:todoItems="todoItems" v-on:removeItemEvent="removeItem" v-on:toggleCompleteEvent="toggleComplete" />
     <TodoFooter v-on:clearAllEvent="clearAll"/>
-    
-    <Modal v-if="showModal" @close="showModal = false">
-      <!--
-        you can use custom content here to overwrite
-        default content
-      -->
-      <h3 slot="header">custom header</h3>
-    </Modal>
   </div>
 </template>
 
@@ -20,7 +12,6 @@ import TodoHeader from './components/TodoHeader'
 import TodoInput from './components/TodoInput'
 import TodoList from './components/TodoList'
 import TodoFooter from './components/TodoFooter'
-import Modal from './components/common/Modal'
 
 export default {
   name: 'App',
@@ -28,8 +19,7 @@ export default {
     TodoHeader,
     TodoInput,
     TodoList,
-    TodoFooter,
-    Modal
+    TodoFooter
   },
   data: function() {
     return {
@@ -48,18 +38,9 @@ export default {
   },
   methods: {
     addTodo: function(newTodoItem) {
-
-      if((newTodoItem).replace(/ /g, "") !== "" && !(localStorage.getItem(newTodoItem) || false)) {
-        let obj = {completed: false, item: newTodoItem};
-        localStorage.setItem(newTodoItem, JSON.stringify(obj));
-        this.todoItems.push(obj);
-      }else {
-        if((newTodoItem).replace(/ /g, "") == "") {
-          alert('빈칸입니다.');
-        } else {
-          alert('중복된 값입니다.');
-        }
-      }
+        let addTodoItem = {completed: false, item: newTodoItem};
+        localStorage.setItem(newTodoItem, JSON.stringify(addTodoItem));
+        this.todoItems.push(addTodoItem);
     },
     removeItem: function(todoItem, index) {
       localStorage.removeItem(todoItem.item);
