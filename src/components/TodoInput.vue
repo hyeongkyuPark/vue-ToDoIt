@@ -16,13 +16,10 @@ export default {
     },
     methods: {
         addTodo: function() {
-            if((this.newTodoItem).replace(/ /g, "") !== "") {
-                let obj = {completed: false, item: this.newTodoItem};
-                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
-                this.clearInput();
-            } else {
-                this.clearInput();
-            }
+            
+            this.$emit('addTodoEvent', this.newTodoItem);
+            this.clearInput();
+            
         },
         clearInput: function() {
             this.newTodoItem = "";
