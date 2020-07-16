@@ -24,7 +24,7 @@ export default {
     components: {
         Modal
     },
-    data: function() {
+    data() {
         return {
             newTodoItem: "",
             modalInfo: {
@@ -36,11 +36,10 @@ export default {
         }
     },
     methods: {
-        addTodo: function() {
-            
-            
+        addTodo() {
             if((this.newTodoItem).replace(/ /g, "") !== "" && !(localStorage.getItem(this.newTodoItem) || false)) {
-                this.$emit('addTodoEvent', this.newTodoItem);
+                // this.$emit('addTodoEvent', this.newTodoItem);
+                this.$store.commit('addOneItem', {newTodoItem : this.newTodoItem});
                 this.clearInput();
             }else {
                 if((this.newTodoItem).replace(/ /g, "") == "") {
@@ -63,7 +62,7 @@ export default {
                 }
             }
         },
-        clearInput: function() {
+        clearInput() {
             this.newTodoItem = "";
         }
     }

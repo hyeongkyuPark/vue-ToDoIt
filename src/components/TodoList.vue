@@ -1,29 +1,29 @@
 <template>
   <div>
-    <ul>
-      <li class="shadow" v-for="(todoItem, index) in todoItems" v-bind:key="index">
-        <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+    <transition-group name="list" tag="ul">
+      <li class="shadow" v-for="(todoItem, index) in this.getTodoItems" v-bind:key="index">
+        <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete({todoItem, index})"></i>
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn">
-          <i class="fas fa-trash-alt" v-on:click="removeTodo(todoItem, index)"></i>
+          <i class="fas fa-trash-alt" v-on:click="removeTodo({todoItem, index})"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
-  props: [
-    'todoItems'
-  ],
+  computed: {
+    ...mapGetters(['getTodoItems'])
+  },
   methods: {
-    removeTodo: function(todoItem, index) {
-      this.$emit('removeItemEvent', todoItem, index);
-    },
-    toggleComplete: function(todoItem, index) {
-      this.$emit('toggleCompleteEvent', todoItem, index);
-    }
+    ...mapMutations({
+      removeTodo: 'removeItem',
+      toggleComplete: 'toggleComplete'
+    })
   }
 }
 </script>
@@ -63,4 +63,19 @@ export default {
     margin-left: auto;
     color: #de4343;
   }
+
+  /* 애니메이션 */
+  /* 애니메이션 진입 및 진출은 다른 지속 시간 및  */
+/* 타이밍 기능을 사용할 수 있습니다. */
+.list-enter-active {
+  transition: all .3s ease;
+}
+.list-leave-active {
+  transition: all .5s ease;
+}
+.list-enter, .list-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(50px);
+  opacity: 0;
+}
 </style>

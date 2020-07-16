@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -89,18 +89,28 @@ export default {
  * these styles.
  */
 
-.modal-enter {
-  opacity: 0;
+
+.modal-leave-active .modal-container,
+.modal-enter-to .modal-container {
+  transition: all 0.5s ease;
 }
 
-.modal-leave-active {
-  opacity: 0;
+.modal-enter-to .modal-container {
+  transform: scale(1.5);
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modal-enter .modal-container {
+  transform: scale(1.5);
+}
+
+.modal-enter-active .modal-container {
+  transform: scale(1.5);
+}
+
+.modal-leave-to .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+  opacity: 0;
 }
 
 .btn-box {
