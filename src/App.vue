@@ -20,11 +20,6 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter
-  },
-  data() {
-    return {
-      
-    }
   }
 }
 </script>
